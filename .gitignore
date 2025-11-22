@@ -65,19 +65,56 @@ venv.bak/
 Thumbs.db
 
 # Project specific
+# Data directories
 data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
-models/trained/*
-!models/trained/.gitkeep
+
+# Models - ignore all trained models but keep directory structure
+models/*
+!models/.gitkeep
+!models/__init__.py
+
+# Results - ignore all experiment outputs but keep directory structure
 results/*
 !results/.gitkeep
+results/benchmark/*
+!results/benchmark/.gitkeep
+results/figures/*
+!results/figures/.gitkeep
+results/tables/*
+!results/tables/.gitkeep
+
+# MLFlow
 mlruns/
+
+# Serialized models and data
 *.pkl
 *.joblib
 *.h5
+*.pth
+*.pt
 
 # Logs
 *.log
 logs/
+
+# Docker
+.dockerignore
+
+# Coverage reports
+.coverage
+
+# Package manager files
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Configuration files (if you have local overrides)
+configs/local.yaml
+configs/secrets.yaml
+
+# Temporary files
+*.tmp
+*.temp
