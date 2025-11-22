@@ -1,0 +1,73 @@
+# GA Configuration
+ga:
+  population_size: 100
+  n_generations: 50
+  crossover_prob: 0.7
+  mutation_prob: 0.2
+  tournament_size: 3
+  elitism_ratio: 0.1
+  
+  # Mutation probabilities (must sum to 1.0)
+  mutation_types:
+    threshold_perturbation: 0.4
+    feature_replacement: 0.3
+    prune_subtree: 0.2
+    expand_leaf: 0.1
+
+# Tree Constraints
+tree:
+  max_depth: 5
+  min_samples_split: 10
+  min_samples_leaf: 5
+  max_features: null  # null means all features
+
+# Fitness Configuration
+fitness:
+  mode: weighted_sum  # 'weighted_sum' or 'pareto'
+  
+  # Weights for weighted_sum mode
+  weights:
+    accuracy: 0.7
+    interpretability: 0.3
+  
+  # Interpretability sub-weights
+  interpretability_weights:
+    node_complexity: 0.4
+    feature_coherence: 0.3
+    tree_balance: 0.2
+    semantic_coherence: 0.1
+
+# Experiment Configuration
+experiment:
+  datasets:
+    - iris
+    - wine
+    - breast_cancer
+  
+  cv_folds: 5
+  n_repeats: 3
+  test_size: 0.2
+  random_state: 42
+  
+  # Baselines to compare
+  baselines:
+    - cart
+    - pruned_cart
+    - random_forest
+    - xgboost
+
+# Parallel Processing
+parallel:
+  n_jobs: -1  # -1 uses all available cores
+  backend: loky
+
+# Experiment Tracking
+tracking:
+  backend: mlflow
+  experiment_name: ga_decision_trees
+  log_models: true
+  log_artifacts: true
+
+# Reproducibility
+seed: 42
+deterministic: true

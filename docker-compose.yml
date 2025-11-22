@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  ga-trees:
+    build: .
+    volumes:
+      - ./results:/app/results
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./configs:/app/configs
+    environment:
+      - MLFLOW_TRACKING_URI=/app/results/mlruns
+    command: python scripts/experiment.py --config configs/default.yaml
+    
+  mlflow:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./results:/app/results
+    command: mlflow ui --backend-store-uri /app/results/mlruns --host 0.0.0.0
+    
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+    command: uvicorn src.ga_trees.api.main:app --host 0.0.0.0 --port 8000
