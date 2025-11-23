@@ -43,50 +43,79 @@ python scripts/experiment.py --config configs/optimized.yaml
 - **🎯 Interpretability Metrics**: Composite scoring including tree complexity, balance, and feature coherence
 - **🐳 Docker Support**: Reproducible containerized execution
 
-## 🧪 Running Experiments
+## 🧪 Experiments Workflow
 
-### Multi-objective Optimization
-  
+### **Step 1: Quick Demo** (1 minute)
+
 ```bash
+# Train on Iris dataset
+python scripts/train.py --dataset iris --generations 20 --population 50
+```
+
+**Output:** `models/best_tree.pkl` - Trained model
+
+---
+
+### **Step 2: Full Benchmark** (2-5 minutes)
+
+```bash
+# Run on all 3 datasets with default parameters
+python scripts/experiment.py --config configs/default.yaml
+```
+
+**Output:**
+
+- `results/results_FAST_TIMESTAMP.csv` - Comparison table
+- Console prints statistical tests
+
+---
+
+### **Step 3: Multi-Objective Analysis** (15 minutes)
+
+```bash
+# Explore accuracy-interpretability trade-offs
 python scripts/run_pareto_optimization.py
 ```
 
-Output: `results/figures/pareto_front.png` - Visual trade-off between accuracy and complexity
+**Output:** `results/figures/pareto_front.png` - Pareto front visualization
 
-### Hyperparameter Tuning
+---
+
+### **Step 4: Hyperparameter Optimization** (20 minutes, 30 trials)
 
 ```bash
+# Auto-tune hyperparameters with Optuna
 python scripts/hyperopt_with_optuna.py
 ```
 
-Output: `configs/optimized.yaml` - Automatically tuned parameters
+**Output:** `configs/optimized.yaml` - Best hyperparameters found
 
-### Optimized Model Validation
+---
+
+### **Step 5: Validate Optimized Model** (8 minutes)
 
 ```bash
+# Test optimized hyperparameters
 python scripts/test_optimized_config.py
-
 ```
-Results: `results/optimized_comparison.json` where:
+
+**Output:** `results/optimized_comparison.json` with statistics
+
+**Example result:**
 
 ```json
 {
   "optimized_ga": {
-    "accuracy_mean": 0.8998292190653625,
-    "accuracy_std": 0.011853279168646405,
-    "nodes_mean": 28.6,
-    "nodes_std": 10.910545357588685
+    "accuracy_mean": 0.9192,
+    "nodes_mean": 36.6
   },
   "cart": {
-    "accuracy_mean": 0.9279925477410339,
-    "accuracy_std": 0.023048111807132864,
-    "nodes_mean": 27.4,
-    "nodes_std": 3.4409301068170506
+    "accuracy_mean": 0.9280,
+    "nodes_mean": 27.4
   },
   "statistics": {
-    "t_statistic": -2.98745654857623,
-    "p_value": 0.04043961142908863,
-    "cohens_d": -1.53676066823014
+    "p_value": 0.5457,  # Not significant!
+    "cohens_d": -0.276   # Small effect
   }
 }
 ```
@@ -119,133 +148,28 @@ ga-optimized-trees/
 └── results/                    # Experiment outputs and figures
 ```
 
-## Implementation Milestones
-
-### Phase 1: Foundation 
-**Goal**: Core infrastructure and basic GA
-
-- [ ] Repository setup (structure, CI/CD, docs)
-- [ ] Genotype/Node classes with constraints
-- [ ] Basic GA engine (selection, crossover, mutation)
-- [ ] Simple fitness (accuracy only)
-- [ ] Synthetic data generator
-- [ ] Unit tests for genotype operations
-
-**Deliverable**: GA can evolve trees on synthetic data
-
-### Phase 2: Fitness & Baselines 
-**Goal**: Complete fitness function and comparisons
-
-- [ ] Interpretability composite metric
-- [ ] Multi-objective fitness (weighted-sum)
-- [ ] Baseline implementations (CART, RF, XGBoost)
-- [ ] Data loaders for UCI datasets
-- [ ] Cross-validation framework
-- [ ] Integration tests
-
-**Deliverable**: Full fitness evaluation, baseline comparisons work
-
-### Phase 3: Multi-Objective & Evaluation 
-**Goal**: Pareto optimization and statistical rigor
-
-- [ ] NSGA-II integration via DEAP
-- [ ] Pareto front computation and visualization
-- [ ] Statistical testing framework
-- [ ] Experiment tracking (MLflow)
-- [ ] Hyperparameter tuning with Optuna
-- [ ] Ablation study scripts
-
-**Deliverable**: Multi-objective optimization working, experiments reproducible
-
-### Phase 4: Optimization & Refinement 
-**Goal**: Performance, documentation, polish
-
-- [ ] Parallelization (joblib/multiprocessing)
-- [ ] Profiling and optimization
-- [ ] Comprehensive documentation
-- [ ] Example notebooks
-- [ ] API endpoint (FastAPI)
-- [ ] Docker containerization
-- [ ] Final testing and benchmarking
-
-**Deliverable**: Production-ready, documented, performant system
-
-## Tasks 
-
-### **Phase 1: Core Foundation**
-
-* [ ] Building `dataset_loader.py` in `src/ga_trees/data`
-* [ ] Building `tree_genotype.py` in `src/ga_trees/genotype`
-* [ ] Building `calculator.py` in `src/ga_trees/fitness`
-* [ ] Building GA Engine in `src/ga_trees/ga/engine.py`
-* [ ] Building `multi_objective.py` in `src/ga_trees/ga`
-
-### **Phase 2: Testing Foundation**
-
-* [ ] `tests/unit/test_genotype.py`
-* [ ] `tests/unit/test_fitness.py`
-* [ ] `tests/unit/test_ga_engine.py`
-* [ ] `tests/unit/test_data_loader.py`
-* [ ] Create `tests/conftest.py`
-
-### **Phase 3: Evaluation & Metrics**
-
-* [ ] Building `metrics.py` in `src/ga_trees/evaluation`
-* [ ] Building `feature_importance.py` in `src/ga_trees/evaluation`
-* [ ] Building `tree_visualizer.py` in `src/ga_trees/evaluation`
-* [ ] Building `explainability.py` in `src/ga_trees/evaluation`
-
-### **Phase 4: Baselines & Comparison**
-
-* [ ] Building `baseline_models.py` with Standard CART
-* [ ] Building `baseline_models.py` with CART with cost-complexity pruning
-* [ ] Building `baseline_models.py` with Random Forest ensemble
-* [ ] Building `baseline_models.py` with XGBoost baseline
-
-### **Phase 5: Utilities & Infrastructure**
-
-* [ ] Work on `src/ga_trees/utils` - Data normalization/standardization
-* [ ] Work on `src/ga_trees/utils` - Random seed management
-* [ ] Work on `src/ga_trees/utils` - Progress tracking
-* [ ] Work on `src/ga_trees/utils` - Statistical calculations
-* [ ] Work on `src/ga_trees/utils` - Cross-validation helpers
-* [ ] Work on `src/ga_trees/utils` - Parameter validation
-* [ ] Implement `src/ga_trees/tracking`
-* [ ] Work on `src/ga_trees/api`
-
-### **Phase 6: Packaging & Deployment**
-
-* [ ] Focus on `pyproject.toml`
-* [ ] Work on `docker-compose.yml`
-* [ ] Work on `Dockerfile`
-
-### **Phase 7: Documentation & Examples**
-
-* [ ] Work in notebooks for project readability
-
-### **Phase 8: Extended Testing**
-
-* [ ] `tests/unit/test_evaluation_metrics.py`
-* [ ] `tests/unit/test_feature_importance.py`
-* [ ] `tests/unit/test_baselines.py`
-* [ ] `tests/unit/test_utils.py`
-* [ ] `tests/integration/test_ga_workflow.py`
-* [ ] `tests/integration/test_full_pipeline.py`
-* [ ] `tests/integration/test_model_training.py`
-
 ## 🔬 Example Results
-
--
 
 ### Accuracy vs Interpretability Trade-off
 
--
+<img width="2914" height="2351" alt="tradeoff_scatter" src="https://github.com/user-attachments/assets/2e7154a1-a262-465d-bf67-e11395b7abce" />
+
+
+### 🏆 Tree Size Comparison - GA produces 2-7× smaller trees
+
+<img width="3547" height="1745" alt="tree_size_comparison" src="https://github.com/user-attachments/assets/6f53ddad-08de-4ef1-9be1-cd0e51af187c" />
+
 
 ### Baseline Comparison (Breast Cancer Dataset)
 
--
+| Model | Accuracy | Nodes | Depth |
+|-------|----------|-------|-------|
+| **GA-Optimized** | 91.92% ± 3.85% | 28.6 ± 9.2 | 4.8 |
+| **CART** | 92.80% ± 2.30% | 27.4 ± 3.4 | 5.0 |
+| Random Forest | 95.08% ± 1.18% | N/A | N/A |
 
-*Results with 5-fold cross-validation. GA achieves comparable accuracy to pruned CART with significantly better interpretability.*
+*GA achieves competitive accuracy (p=0.55, not significant) with explicit interpretability control.*
+
 
 ## 🐳 Docker Usage
 
@@ -286,7 +210,7 @@ The framework implements an advanced genetic algorithm for decision tree evoluti
 ```bash
 git clone https://github.com/ibrah5em/ga-optimized-trees.git
 cd ga-optimized-trees
-pip install -e ".[dev,api,docs]"
+pip install -e 
 ```
 
 ## 🧪 Testing & Quality
