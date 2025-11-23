@@ -84,7 +84,7 @@ results/*.pkl
 results/mlruns/
 results/benchmark/
 
-# BUT keep figures for README
+# figures for README
 !results/figures/*.png
 !results/.gitkeep
 
