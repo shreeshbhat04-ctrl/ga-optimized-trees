@@ -22,11 +22,14 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 pip install -e .
 
-# Run a quick demo (Iris dataset, ~5 minutes)
+# Run a quick demo (Iris dataset, ~1 minutes)
 python scripts/train.py --dataset iris --generations 20 --population 50
 
-# Run full experiment suite (~30 minutes on 8 cores)
-python scripts/experiment.py --config configs/small_experiment.yaml
+# Run full experiment suite (Iris dataset + wine dataset + breast_cancer dataset, ~2 minutes)
+python scripts/experiment.py --config configs/default.yaml
+
+# You Can run the same script using other config file, like optimized.yaml
+python scripts/experiment.py --config configs/optimized.yaml
 ```
 
 ## 📊 Key Features
@@ -38,7 +41,6 @@ python scripts/experiment.py --config configs/small_experiment.yaml
 - **🔍 Experiment Tracking**: Integrated MLflow for reproducibility
 - **⚡ Parallel Execution**: Multiprocessing for fitness evaluation
 - **🎯 Interpretability Metrics**: Composite scoring including tree complexity, balance, and feature coherence
-- **🌐 REST API**: FastAPI endpoint for model serving and deployment
 - **🐳 Docker Support**: Reproducible containerized execution
 
 ## 🏗️ Architecture Overview
@@ -59,50 +61,59 @@ graph TB
 
 ## 🧪 Running Experiments
 
-### Basic Training
-```bash
-# Train on a single dataset
-python scripts/train.py \
-    --dataset wine \
-    --generations 50 \
-    --population 100 \
-    --output models/wine_model.pkl
 
-# Evaluate trained model
-python scripts/evaluate.py \
-    --model models/wine_model.pkl \
-    --dataset wine \
-    --test-size 0.2
+### Multi-objective Optimization
+  
+```bash
+python scripts/run_pareto_optimization.py
 ```
 
-### Multi-Objective Optimization
+Output: `results/figures/pareto_front.png` - Visual trade-off between accuracy and complexity
+
+### Hyperparameter Tuning
+
 ```bash
-# Evolve Pareto front
-python scripts/train.py \
-    --dataset breast_cancer \
-    --mode pareto \
-    --generations 100 \
-    --population 200 \
-    --objectives accuracy interpretability
+python scripts/hyperopt_with_optuna.py
 ```
 
-### Full Experiment Suite
+Output: `configs/optimized.yaml` - Automatically tuned parameters
+
+### Optimized Model Validation
+
 ```bash
-# Run all experiments with baselines
-python scripts/experiment.py \
-    --config configs/full_experiment.yaml \
-    --n-jobs 8 \
-    --output results/
+python scripts/test_optimized_config.py
+
+```
+Results: `results/optimized_comparison.json` where:
+
+```json
+{
+  "optimized_ga": {
+    "accuracy_mean": 0.8998292190653625,
+    "accuracy_std": 0.011853279168646405,
+    "nodes_mean": 28.6,
+    "nodes_std": 10.910545357588685
+  },
+  "cart": {
+    "accuracy_mean": 0.9279925477410339,
+    "accuracy_std": 0.023048111807132864,
+    "nodes_mean": 27.4,
+    "nodes_std": 3.4409301068170506
+  },
+  "statistics": {
+    "t_statistic": -2.98745654857623,
+    "p_value": 0.04043961142908863,
+    "cohens_d": -1.53676066823014
+  }
+}
 ```
 
-### Hyperparameter Optimization
-```bash
-# Auto-tune GA hyperparameters
-python scripts/hyperopt.py \
-    --dataset credit_default \
-    --n-trials 50 \
-    --output configs/optimized.yaml
-```
+#### 📊 Key Findings
+
+* Performance: Optimized GA achieves competitive accuracy (90.0%) vs CART (92.8%)
+* Complexity: GA models show higher variance in size but maintain interpretability
+* Statistical Significance: p-value < 0.05 indicates meaningful improvement
+
 
 ## 📁 Repository Structure
 
@@ -127,18 +138,15 @@ ga-optimized-trees/
 
 ## 🔬 Example Results
 
+-
+
 ### Accuracy vs Interpretability Trade-off
 
-![Pareto Front](https://raw.githubusercontent.com/ibrah5em/ga-optimized-trees/main/results/figures/pareto_front_breast_cancer.png)
+-
 
 ### Baseline Comparison (Breast Cancer Dataset)
 
-| Model | Accuracy | F1 Score | Tree Size | Depth | Interpretability |
-|-------|----------|----------|-----------|-------|------------------|
-| **GA-Optimized** | **0.953 ± 0.012** | **0.951 ± 0.013** | **15.2 ± 2.1** | **4.8 ± 0.5** | **0.87 ± 0.04** |
-| CART | 0.932 ± 0.018 | 0.928 ± 0.019 | 28.4 ± 5.3 | 7.2 ± 1.2 | 0.62 ± 0.07 |
-| Pruned CART | 0.941 ± 0.015 | 0.937 ± 0.016 | 19.6 ± 3.2 | 5.5 ± 0.8 | 0.75 ± 0.05 |
-| Random Forest | 0.968 ± 0.010 | 0.967 ± 0.011 | N/A | N/A | 0.45 ± 0.08 |
+-
 
 *Results with 5-fold cross-validation. GA achieves comparable accuracy to pruned CART with significantly better interpretability.*
 
@@ -173,11 +181,6 @@ The framework implements an advanced genetic algorithm for decision tree evoluti
 5. **🧬 Mutation**: Threshold perturbation, feature replacement, pruning
 6. **🎯 Multi-Objective**: NSGA-II for Pareto-optimal solutions
 
-### Interpretability Metric
-```
-I = w1 * (1 - TreeComplexity) + w2 * FeatureCoherence + 
-    w3 * TreeBalance + w4 * SemanticCoherence
-```
 
 ## 📦 Installation 
 
@@ -204,16 +207,6 @@ flake8 src/ tests/
 mypy src/
 ```
 
-## 📈 Experiment Tracking
-
-Results are automatically logged to MLflow for comprehensive tracking:
-
-```bash
-# Start MLflow UI
-mlflow ui --backend-store-uri results/mlruns
-
-# View at http://localhost:5000
-```
 
 ## 🔧 Configuration
 
@@ -243,6 +236,7 @@ fitness:
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
+
 - Development environment setup
 - Code style guidelines
 - Pull request process
@@ -270,7 +264,6 @@ If you use this framework in your research, please cite:
 
 - Built with [DEAP](https://github.com/DEAP/deap) for evolutionary algorithms
 - Uses [scikit-learn](https://scikit-learn.org/) for baseline models and metrics
-- Experiment tracking with [MLflow](https://mlflow.org/)
 - Visualization with [Matplotlib](https://matplotlib.org/) and [Seaborn](https://seaborn.pydata.org/)
 
 ## 📞 Support & Community
@@ -284,8 +277,6 @@ If you use this framework in your research, please cite:
 
 <div align="center">
   
-**Made with ❤️ by [Ibrahem Hasaki](https://github.com/ibrah5em)**
-
 *If this project helps your research, please consider giving it a ⭐*
 
 </div>
