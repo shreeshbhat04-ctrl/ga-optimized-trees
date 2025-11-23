@@ -10,17 +10,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
-    runs-on: ubuntu-latest
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
     
     - name: Set up Python 3.11
-    - name: Set up Python 3.11
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
         python-version: '3.11'
     
     - name: Install dependencies
@@ -33,9 +29,7 @@ jobs:
       run: |
         pip install pytest pytest-cov
         pytest tests/unit/ -v --cov=src/ga_trees --cov-report=term-missing
-        pytest tests/unit/ -v --cov=src/ga_trees --cov-report=term-missing
     
-    - name: Quick training test
     - name: Quick training test
       run: |
         python scripts/train.py --dataset iris --generations 5 --population 10
