@@ -1,0 +1,71 @@
+# Genetic Algorithm Configuration (Merged + Optimized)
+ga:
+  population_size: 140           # from optimized (bigger search space)
+  n_generations: 50              # from optimized (stronger evolution)
+  crossover_prob: 0.6733843409158413
+  mutation_prob: 0.15297790351647228
+  tournament_size: 2             # from optimized (more selective)
+  elitism_ratio: 0.15            # keep from default (stable retention)
+
+  # Mutation types kept from default (optimized block didn't define these)
+  mutation_types:
+    threshold_perturbation: 0.5
+    feature_replacement: 0.3
+    prune_subtree: 0.15
+    expand_leaf: 0.05
+
+# Tree Constraints (merged)
+tree:
+  max_depth: 6                   # from optimized (slightly more expressive)
+  min_samples_split: 18          # from optimized
+  min_samples_leaf: 5            # same in both
+  max_features: null
+
+# Fitness Configuration (Merged)
+fitness:
+  mode: weighted_sum
+
+  # Merge strategy:
+  # - Use optimized ratio (0.86 vs 0.13) BUT normalized into default structure
+  weights:
+    accuracy: 0.8619364624278322
+    interpretability: 0.13806353757216783
+
+  # Use interpretability sub-weights from default (optimized didn't define them)
+  interpretability_weights:
+    node_complexity: 0.6
+    feature_coherence: 0.2
+    tree_balance: 0.1
+    semantic_coherence: 0.1
+
+# Experiment Configuration
+experiment:
+  datasets:
+    - iris
+    - wine
+    - breast_cancer
+  cv_folds: 5
+  n_repeats: 3
+  test_size: 0.2
+  random_state: 42
+  baselines:
+    - cart
+    - pruned_cart
+    - random_forest
+    - xgboost
+
+# Parallel Processing
+parallel:
+  n_jobs: -1
+  backend: loky
+
+# Experiment Tracking
+tracking:
+  backend: mlflow
+  experiment_name: ga_decision_trees
+  log_models: true
+  log_artifacts: true
+
+# Reproducibility
+seed: 42
+deterministic: true

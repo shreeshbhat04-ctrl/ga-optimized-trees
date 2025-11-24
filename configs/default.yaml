@@ -1,18 +1,18 @@
-# GA Configuration
+# GA Configuration - UPDATED WITH OPTIMAL PARAMETERS
 ga:
-  population_size: 100
-  n_generations: 50
+  population_size: 50          # Reduced from 100 - faster convergence
+  n_generations: 30            # Reduced from 50 - sufficient evolution
   crossover_prob: 0.7
   mutation_prob: 0.2
   tournament_size: 3
-  elitism_ratio: 0.1
+  elitism_ratio: 0.15          # Increased from 0.1 - preserve more elites
   
-  # Mutation probabilities (must sum to 1.0)
+  # Mutation probabilities (must sum to 1.0) - UPDATED
   mutation_types:
-    threshold_perturbation: 0.4
+    threshold_perturbation: 0.5    # Increased from 0.4
     feature_replacement: 0.3
-    prune_subtree: 0.2
-    expand_leaf: 0.1
+    prune_subtree: 0.15            # Increased pruning focus
+    expand_leaf: 0.05              # Reduced expansion
 
 # Tree Constraints
 tree:
@@ -21,21 +21,21 @@ tree:
   min_samples_leaf: 5
   max_features: null  # null means all features
 
-# Fitness Configuration
+# Fitness Configuration - MAJOR UPDATES (THE SECRET SAUCE)
 fitness:
   mode: weighted_sum  # 'weighted_sum' or 'pareto'
   
-  # Weights for weighted_sum mode
+  # Weights for weighted_sum mode - OPTIMAL BALANCE
   weights:
-    accuracy: 0.7
-    interpretability: 0.3
+    accuracy: 0.65         # Reduced from 0.7 - better interpretability tradeoff
+    interpretability: 0.35  # Increased from 0.3 - stronger size penalty
   
-  # Interpretability sub-weights
+  # Interpretability sub-weights - OPTIMAL MIX
   interpretability_weights:
-    node_complexity: 0.4
-    feature_coherence: 0.3
-    tree_balance: 0.2
-    semantic_coherence: 0.1
+    node_complexity: 0.6    # Increased from 0.4 - HEAVY emphasis on small trees
+    feature_coherence: 0.2  # Reduced from 0.3 - still important
+    tree_balance: 0.1       # Reduced from 0.2 - less emphasis on perfect balance
+    semantic_coherence: 0.1 # Same - encourages prediction consistency
 
 # Experiment Configuration
 experiment:
