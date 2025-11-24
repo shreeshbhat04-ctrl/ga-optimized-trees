@@ -25,7 +25,7 @@ plt.rcParams['figure.dpi'] = 100
 plt.rcParams['savefig.dpi'] = 300
 plt.rcParams['font.family'] = 'sans-serif'
 
-# Your actual results
+# our results
 RESULTS = {
     'iris': {
         'GA': {'acc': 95.33, 'std': 3.40, 'nodes': 7.4, 'depth': 2.4, 'time': 3.41},
