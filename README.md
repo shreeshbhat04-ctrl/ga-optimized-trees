@@ -167,7 +167,8 @@ ga-optimized-trees/
 
 ## 🐳 Docker Usage
 
-> **⚠️ Note:** The Docker setup is currently under development and these commands may not work as expected. We are working to stabilize the containerized environment.
+> [!NOTE] Note
+> The Docker setup is currently under development and these commands may not work as expected. We are working to stabilize the containerized environment.
 
 ```bash
 # Build image
@@ -196,8 +197,7 @@ The framework implements an advanced genetic algorithm for decision tree evoluti
 3. **🏆 Selection**: Tournament selection with elitism preservation
 4. **🔀 Crossover**: Subtree-aware swapping with constraint repair
 5. **🧬 Mutation**: Threshold perturbation, feature replacement, pruning
-6. **🎯 Multi-Objective**: Weighted-sum fitness for Pareto-optimal solutions
-
+6. **🎯 Multi-Objective**: Weighted-sum fitness for balancing accuracy and interpretability
 
 ## 📦 Installation 
 
@@ -249,6 +249,8 @@ fitness:
     accuracy: 0.7
     interpretability: 0.3
 ```
+> [!NOTE] Note
+> The current implementation uses weighted sum fitness. True Pareto-based multi-objective optimization (NSGA-II) is planned for future releases.
 
 ## 🤝 Contributing
 
