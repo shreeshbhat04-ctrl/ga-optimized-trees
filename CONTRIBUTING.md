@@ -159,46 +159,6 @@ def evaluate_tree(tree: TreeGenotype,
     # Implementation...
 ```
 
-## 🏗️ Project Structure
-
-### Where to Put Your Code
-```
-src/ga_trees/
-├── genotype/           # Tree representations
-│   ├── base.py        # Base tree class
-│   ├── operators/     # Crossover, mutation
-│   └── constraints/   # Tree validation
-├── fitness/           # Objective functions
-│   ├── base.py        # Base fitness class
-│   ├── multi_obj.py   # Multi-objective fitness
-│   └── metrics/       # Interpretability metrics
-├── ga/                # Genetic algorithm core
-│   ├── engine.py      # Main GA engine
-│   ├── selection.py   # Selection operators
-│   └── population.py  # Population management
-└── evaluation/        # Model evaluation
-    ├── metrics.py     # Performance metrics
-    ├── statistical.py # Statistical tests
-    └── visualization/ # Plotting utilities
-```
-
-### Adding New Features
-
-**1. New Genetic Operator**:
-- Place in `src/ga_trees/genotype/operators/`
-- Inherit from base operator class
-- Add to operator registry in `__init__.py`
-
-**2. New Fitness Metric**:
-- Place in `src/ga_trees/fitness/metrics/`
-- Implement `calculate()` method
-- Register in fitness calculator
-
-**3. New Baseline Model**:
-- Place in `src/ga_trees/baselines/`
-- Implement standard scikit-learn interface
-- Add to comparison scripts
-
 ## 🐛 Bug Reports
 
 When reporting bugs, please include:
@@ -221,53 +181,6 @@ For feature requests, please describe:
 2. **Proposed Solution**: How should it work?
 3. **Alternatives Considered**: Other approaches you've considered
 4. **Additional Context**: Any other relevant information
-
-## 📚 Documentation
-
-### Updating Documentation
-- Code changes may require docstring updates
-- Update README.md for user-facing changes
-- Add examples in `notebooks/` for new features
-- Update docstrings when modifying functions
-
-### Building Documentation
-```bash
-# Install docs dependencies
-pip install -e ".[docs]"
-
-# Build documentation
-cd docs
-make html
-```
-
-## 🔧 Development Tools
-
-### Pre-commit Hooks
-We use pre-commit to ensure code quality:
-
-```bash
-# Install pre-commit
-pip install pre-commit
-pre-commit install
-
-# Run on all files
-pre-commit run --all-files
-```
-
-### Code Quality Checks
-```bash
-# Format code
-black src/ tests/ scripts/
-
-# Linting
-flake8 src/ tests/
-
-# Type checking
-mypy src/
-
-# Sort imports
-isort src/ tests/ scripts/
-```
 
 ## 🎯 Focus Areas for Contributions
 
@@ -294,11 +207,6 @@ isort src/ tests/ scripts/
 ### Discussion Channels
 - [GitHub Discussions](https://github.com/ibrah5em/ga-optimized-trees/discussions) for questions and ideas
 - [GitHub Issues](https://github.com/ibrah5em/ga-optimized-trees/issues) for bugs and feature requests
-
-### Code Review Process
-1. **Initial Review**: Within 48 hours for new PRs
-2. **Feedback Cycle**: Typically 1-2 rounds of review
-3. **Merge Criteria**: All tests pass + 1 approved review
 
 ## 📄 License
 
