@@ -347,7 +347,7 @@ def main():
         print("Matplotlib not available, skipping evolution plot")
 
     print("\n" + "=" * 60)
-    print("Training Complete! 🎉")
+    print("Training Complete! ")
     print("=" * 60)
 
 
