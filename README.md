@@ -460,29 +460,9 @@ of this software and associated documentation files...
 - **Multiple Baselines**: CART, Pruned CART, Random Forest, XGBoost
 - **Python 3.8-3.12**: Broad compatibility
 
----
-
-## 🚀 Quick Links
-
-| Resource | Link |
-|----------|------|
-| **Documentation** | [docs/README.md](docs/README.md) |
-| **Installation** | [docs/getting-started/installation.md](docs/getting-started/installation.md) |
-| **Configuration** | [docs/getting-started/Configuration.md](docs/getting-started/Configuration.md) |
-| **Training Guide** | [docs/user-guides/training.md](docs/user-guides/training.md) |
-| **Experiments** | [docs/user-guides/experiments.md](docs/user-guides/experiments.md) |
-| **Custom Fitness** | [docs/advanced/custom-fitness.md](docs/advanced/custom-fitness.md) |
-| **FAQ** | [docs/faq/faq.md](docs/faq/faq.md) |
-| **Contributing** | [CONTRIBUTING.md](CONTRIBUTING.md) |
-
----
-
 <div align="center">
 
 **⭐ If this project helps your research, please consider giving it a star! ⭐**
 
-**Research Achievement**: 46-82% smaller trees • Statistically equivalent accuracy (p > 0.05) • 20-fold CV validation
-
-[🚀 Get Started](#-quick-start) • [📚 Documentation](docs/README.md) • [🤝 Contribute](CONTRIBUTING.md)
 
 </div>
