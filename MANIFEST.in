@@ -1,0 +1,58 @@
+# MANIFEST.in - Include additional files in source distribution
+
+# Include important documentation
+include README.md
+include LICENSE
+include CONTRIBUTING.md
+include CHANGELOG.md
+
+# Include configuration files
+include pyproject.toml
+include setup.py
+include setup.cfg
+
+# Include requirements files
+include requirements.txt
+include requirements-optional.txt
+include requirements-dev.txt
+
+# Include configuration examples
+recursive-include configs *.yaml *.yml
+
+# Include documentation
+recursive-include docs *.md *.rst *.png *.jpg
+prune docs/.obsidian
+
+# Include tests
+recursive-include tests *.py
+
+# Include type hints
+include src/ga_trees/py.typed
+
+# Exclude unnecessary files
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude *$py.class
+global-exclude *.so
+global-exclude .DS_Store
+
+# Exclude build artifacts
+prune build
+prune dist
+prune *.egg-info
+
+# Exclude version control
+prune .git
+prune .github
+
+# Exclude IDE files
+prune .vscode
+prune .idea
+
+# Exclude experimental code
+prune experimental
+
+# Exclude results and models (too large)
+prune results
+prune models
+prune mlruns
