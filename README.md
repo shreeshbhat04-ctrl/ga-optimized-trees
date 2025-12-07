@@ -187,25 +187,6 @@ With all optional features:
 pip install -e .[all]
 ```
 
-### From Source (Development)
-
-```bash
-git clone https://github.com/ibrah5em/ga-optimized-trees.git
-cd ga-optimized-trees
-
-# Minimal installation (core only)
-pip install -e .
-
-# Or install with specific features:
-pip install -e .[viz]           # For tree visualization
-pip install -e .[explainability] # For SHAP/LIME explainability
-pip install -e .[optimization]  # For Optuna/MLflow hyperparameter tuning
-pip install -e .[baselines]     # For XGBoost/LightGBM comparisons
-pip install -e .[api]           # For FastAPI web interface
-pip install -e .[dev]           # For development (testing, linting, etc.)
-pip install -e .[full]          # All features + dev tools
-```
-
 ### Legacy Installation (Still Supported)
 
 If you prefer using requirements files:
