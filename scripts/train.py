@@ -322,7 +322,7 @@ def main():
     with open(output_path, "wb") as f:
         pickle.dump(model_data, f)
 
-    print(f"\n✓ Model saved to: {output_path}")
+    print(f"\n[✓] Model saved to: {output_path}")
 
     # Plot evolution history
     try:
