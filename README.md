@@ -221,9 +221,7 @@ isort src/ tests/ scripts/
 
 **Note:** This package follows modern Python packaging standards (PEP 621). The `pyproject.toml` file contains all dependency declarations and build configurations.
 
-For detailed installation instructions and troubleshooting, see [INSTALLATION.md](docs/getting-started/installation.md).
-
-See the [Migration Guide](docs/MIGRATION.md) for details.
+For detailed installation instructions and troubleshooting, see [INSTALLATION.md](docs/getting-started/installation.md), [Migration Guide](docs/MIGRATION.md) .
 
 ## 🧪 Testing & Quality
 
