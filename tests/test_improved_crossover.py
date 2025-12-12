@@ -8,6 +8,7 @@ Tests:
 
 import numpy as np
 
+from ga_trees.ga.engine import TreeInitializer
 from ga_trees.ga.improved_crossover import (
     build_parent_map,
     fix_depths,
@@ -15,7 +16,6 @@ from ga_trees.ga.improved_crossover import (
     safe_subtree_crossover,
     validate_tree_structure,
 )
-from ga_trees.ga.engine import TreeInitializer
 from ga_trees.genotype.tree_genotype import TreeGenotype
 
 
