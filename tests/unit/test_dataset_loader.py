@@ -18,16 +18,16 @@ Usage:
     pytest tests/unit/test_dataset_loader.py -v -m "not slow"
 """
 
-import pytest
+import shutil
+import tempfile
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
-from pathlib import Path
-import tempfile
-import shutil
+import pytest
 
 # FIXED: we now Use correct import path
 from src.ga_trees.data.dataset_loader import DatasetLoader, DataValidator, load_benchmark_dataset
-
 
 # ============================================================================
 # FIXTURES

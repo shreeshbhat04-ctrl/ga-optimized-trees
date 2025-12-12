@@ -14,9 +14,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-import numpy as np
 from typing import Tuple
-from sklearn.datasets import load_iris, load_wine, load_breast_cancer
+
+import numpy as np
+from sklearn.datasets import load_breast_cancer, load_iris, load_wine
 
 
 def load_any_dataset(name: str, standardize: bool = False) -> Tuple[np.ndarray, np.ndarray]:

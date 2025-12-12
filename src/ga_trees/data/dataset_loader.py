@@ -36,15 +36,16 @@ also:
 4. Warning suppression for expected numpy warnings
 """
 
-import pandas as pd
-import numpy as np
-from pathlib import Path
-from typing import Tuple, Optional, Dict, List, Union
-from sklearn.datasets import fetch_openml
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.model_selection import train_test_split
-from sklearn.utils import resample
 import warnings
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple, Union
+
+import numpy as np
+import pandas as pd
+from sklearn.datasets import fetch_openml
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.utils import resample
 
 warnings.filterwarnings("ignore")
 
@@ -337,11 +338,11 @@ class DatasetLoader:
     def _load_sklearn(self, name: str) -> Tuple:
         """Load sklearn built-in dataset."""
         from sklearn.datasets import (
+            load_breast_cancer,
+            load_diabetes,
+            load_digits,
             load_iris,
             load_wine,
-            load_breast_cancer,
-            load_digits,
-            load_diabetes,
         )
 
         loaders = {

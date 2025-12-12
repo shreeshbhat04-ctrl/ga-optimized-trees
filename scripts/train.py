@@ -16,11 +16,12 @@ Usage:
 """
 
 import argparse
-import numpy as np
 import pickle
-import yaml
 import sys
 from pathlib import Path
+
+import numpy as np
+import yaml
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -28,10 +29,11 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+from ga_trees.fitness.calculator import FitnessCalculator
+from ga_trees.ga.engine import GAConfig, GAEngine, Mutation, TreeInitializer
+
 # Import our modules
 from ga_trees.genotype.tree_genotype import TreeGenotype
-from ga_trees.ga.engine import GAEngine, GAConfig, TreeInitializer, Mutation
-from ga_trees.fitness.calculator import FitnessCalculator
 
 
 def load_dataset(name: str):
@@ -41,11 +43,11 @@ def load_dataset(name: str):
     # First try sklearn datasets (fast path)
     if name in ["iris", "wine", "breast_cancer", "digits", "diabetes"]:
         from sklearn.datasets import (
+            load_breast_cancer,
+            load_diabetes,
+            load_digits,
             load_iris,
             load_wine,
-            load_breast_cancer,
-            load_digits,
-            load_diabetes,
         )
 
         loaders = {
