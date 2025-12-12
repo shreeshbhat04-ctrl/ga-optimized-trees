@@ -120,7 +120,7 @@ def test_depth_fixing():
     for node in tree.get_all_nodes():
         node.depth = 999
 
-    print(f"Before fix: all depths set to 999")
+    print("Before fix: all depths set to 999")
 
     # Fix depths
     fix_depths(tree.root, 0)
@@ -212,7 +212,7 @@ def test_multiple_crossovers():
         if not (is_valid1 and is_valid2):
             failures += 1
 
-    print(f"Performed 20 crossovers")
+    print("Performed 20 crossovers")
     print(f"Failures: {failures}/20")
 
     if failures == 0:
