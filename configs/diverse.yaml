@@ -9,7 +9,6 @@ meta:
   experiment_name: "ga_interpretable_trees_research"
   description: "Genetic Algorithm for Pareto-optimal decision trees balancing accuracy and interpretability"
   version: "2.0"
-  authors: ["Your Research Team"]
   target_results:
     tree_size_reduction: "46-49% on simple datasets"
     performance_target: "Statistically equivalent to CART on complex data"
