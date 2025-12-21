@@ -640,72 +640,6 @@ def create_consultation_package(results_df: pd.DataFrame, stats_df: pd.DataFrame
                 "Question_AR": "هل 20-fold CV مناسب لأحجام العينات؟",
                 "Paper_Section": "3.6.2",
             },
-            {
-                "Q#": 2,
-                "Question_EN": "Is stratified sampling sufficient?",
-                "Question_AR": "هل stratified sampling كافٍ؟",
-                "Paper_Section": "3.6.2",
-            },
-            {
-                "Q#": 3,
-                "Question_EN": "Is Paired t-test the most appropriate?",
-                "Question_AR": "هل Paired t-test الأنسب؟",
-                "Paper_Section": "4.3",
-            },
-            {
-                "Q#": 4,
-                "Question_EN": "Need Bonferroni correction for 3 datasets?",
-                "Question_AR": "هل نحتاج تصحيح Bonferroni؟",
-                "Paper_Section": "5.6",
-            },
-            {
-                "Q#": 5,
-                "Question_EN": "Is Cohen's d calculation correct for paired data?",
-                "Question_AR": "هل حساب Cohen's d صحيح؟",
-                "Paper_Section": "4.3",
-            },
-            {
-                "Q#": 6,
-                "Question_EN": "How to interpret non-significance with large size differences?",
-                "Question_AR": "كيف نفسر عدم الدلالة مع فروق الحجم؟",
-                "Paper_Section": "5.1",
-            },
-            {
-                "Q#": 7,
-                "Question_EN": "Should tree size be tested statistically?",
-                "Question_AR": "هل نختبر حجم الشجرة إحصائياً؟",
-                "Paper_Section": "4.2",
-            },
-            {
-                "Q#": 8,
-                "Question_EN": "Are small effect sizes (0.12-0.23) acceptable in medical AI?",
-                "Question_AR": "هل أحجام التأثير الصغيرة مقبولة؟",
-                "Paper_Section": "5.4",
-            },
-            {
-                "Q#": 9,
-                "Question_EN": "What are threats to statistical validity?",
-                "Question_AR": "ما مصادر التهديد للصلاحية؟",
-                "Paper_Section": "5.7",
-            },
-            {
-                "Q#": 10,
-                "Question_EN": "Should we perform power analysis?",
-                "Question_AR": "هل نجري تحليل القوة الإحصائية؟",
-                "Paper_Section": "5.7",
-            },
-            {
-                "Q#": 11,
-                "Question_EN": "What additional tests needed (Shapiro-Wilk, etc.)?",
-                "Question_AR": "ما الاختبارات الإضافية المطلوبة؟",
-                "Paper_Section": "5.7",
-            },
-            {
-                "Q#": 12,
-                "Question_EN": "How to improve robustness?",
-                "Question_AR": "كيف نحسن قوة النتائج؟",
-                "Paper_Section": "6.3",
-            },
         ]
 
         pd.DataFrame(questions).to_excel(writer, sheet_name="Questions_للبروفيسور", index=False)
@@ -787,93 +721,12 @@ def create_arabic_summary():
     results_dir = Path("results/professor_consultation")
     summary_path = results_dir / "consultation_request_summary_AR.txt"
 
-    summary_text = (
-        """
+    summary_text = """
 ╔══════════════════════════════════════════════════════════════════════╗
 ║              طلب استشارة إحصائية - ملخص النتائج                    ║
 ╚══════════════════════════════════════════════════════════════════════╝
 
-المشروع: تطوير أشجار القرار القابلة للتفسير عبر الخوارزميات الجينية
-الباحثون: إبراهيم حساكي وعبد الرزاق القهواجي
-المشرف: د. عفاف الشلبي
-
-════════════════════════════════════════════════════════════════════════
-
-📊 التصميم التجريبي (من الورقة البحثية):
-
-✓ 20-fold Stratified Cross-Validation
-✓ Feature Standardization (StandardScaler)
-✓ Fixed Random Seed: 42
-✓ Paired Statistical Tests
-✓ Effect Size Calculation (Cohen's d)
-
-════════════════════════════════════════════════════════════════════════
-
-🎯 المعاملات المستخدمة (Section 3.6.4 من الورقة):
-
-Genetic Algorithm:
-  • Population Size: 80
-  • Generations: 40
-  • Crossover Probability: 0.72
-  • Mutation Probability: 0.18
-  • Tournament Size: 4
-  • Elitism Ratio: 0.12
-
-Tree Constraints:
-  • Maximum Depth: 6
-  • Min Samples Split: 8
-  • Min Samples Leaf: 3
-
-Fitness Weights:
-  • Accuracy Weight: 0.68
-  • Interpretability Weight: 0.32
-  • Node Complexity: 0.50
-  • Feature Coherence: 0.10
-
-════════════════════════════════════════════════════════════════════════
-
-📈 النتائج المتوقعة (من الورقة - جدول 1 و 2 و 3):
-
-Dataset          | GA Acc      | CART Acc    | p-value | Reduction
-─────────────────┼─────────────┼─────────────┼─────────┼───────────
-Iris             | 93.84 ± 8%  | 92.41 ± 10% | 0.299   | 24%
-Wine             | 89.93 ± 13% | 87.22 ± 11% | 0.345   | 27%
-Breast Cancer    | 92.10 ± 5%  | 91.57 ± 4%  | 0.699   | 77%
-
-النتيجة الرئيسية: جميع p-values > 0.05
-الاستنتاج: الدقة متكافئة إحصائياً مع تقليل كبير في حجم الأشجار
-
-════════════════════════════════════════════════════════════════════════
-
-📋 الأسئلة للبروفيسور (12 سؤال - انظر ملف Excel):
-
-1. هل 20-fold CV مناسب لأحجام العينات؟
-2. هل Paired t-test هو الاختبار الأنسب؟
-3. هل نحتاج تصحيح Bonferroni للمقارنات المتعددة؟
-4. كيف نفسر عدم الدلالة الإحصائية مع فروق الحجم الكبيرة؟
-... (انظر الملف الكامل)
-
-════════════════════════════════════════════════════════════════════════
-
-📁 الملفات المرفقة:
-
-1. iris_dataset.xlsx
-2. wine_dataset.xlsx
-3. breast_cancer_dataset.xlsx
-4. detailed_results.xlsx (جداول 1-4 من الورقة + جميع الـ 20 fold)
-5. statistical_consultation_package.xlsx (تحليل شامل)
-6. هذا الملف (الملخص العربي)
-
-════════════════════════════════════════════════════════════════════════
-
-تاريخ الإعداد: """
-        + pd.Timestamp.now().strftime("%Y-%m-%d %H:%M")
-        + """
-
-ملاحظة: جميع النتائج مطابقة للمعاملات المذكورة في الورقة البحثية
-         (Section 3.6.4, Algorithm 1)
 """
-    )
 
     summary_path.write_text(summary_text, encoding="utf-8")
     print(f"✓ Arabic summary: {summary_path}")
