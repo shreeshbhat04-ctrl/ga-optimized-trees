@@ -10,7 +10,7 @@ ga:
   n_generations: 40
   crossover_prob: 0.72
   mutation_prob: 0.18
-  tournament_size: 4
+  tournament_size: 3
   elitism_ratio: 0.12
   
   mutation_types:
